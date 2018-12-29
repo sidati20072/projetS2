@@ -38,6 +38,16 @@ public class UserDetailsServiceImpl implements UserDetailsService  {
 		
 		
 		
+		return org.springframework.security.core.userdetails.User
+				.withUsername(username)
+				.password(u.getPassword())//
+		        .authorities(authorities)//
+		        .accountExpired(false)//
+		        .accountLocked(false)//
+		        .credentialsExpired(false)//
+		        .disabled(false)//
+		        .build();
+		/*
 		MyUserPrincipal muser = new MyUserPrincipal();
 		muser.setUser(u);
 		muser.setAuthorities(authorities);
@@ -45,6 +55,7 @@ public class UserDetailsServiceImpl implements UserDetailsService  {
 		System.out.println(muser.getAuthorities().toString());
 		return muser;
 		//return  (UserDetails) new Users(u.getUsername(),u.getPassword(),authorities); 
+	*/
 	}
 
 	
