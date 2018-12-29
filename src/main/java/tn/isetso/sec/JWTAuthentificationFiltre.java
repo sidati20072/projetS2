@@ -51,18 +51,33 @@ public class JWTAuthentificationFiltre extends UsernamePasswordAuthenticationFil
 						));
 	}
 	
+	/*
+	@Override
+	protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain,
+			Authentication auth) throws IOException, ServletException {
+
+	}
 	
-	protected void successfullAuthentication(HttpServletRequest request , HttpServletResponse reponse , FilterChain chain,Authentication authResult) throws IOException , ServletException{
+	*/
+	@Override
+	protected void successfulAuthentication(HttpServletRequest request , HttpServletResponse reponse , FilterChain chain,Authentication authResult) throws IOException , ServletException{
 	
-		User springUser = (User) authResult.getPrincipal();
+		System.out.println("************ ici debut seccessf**********");
+
+		//User springUser = authResult.getPrincipal();
 		String jwtToken=Jwts.builder()
-				.setSubject(springUser.getName())
+				.setSubject(authResult.getName())
 				.setExpiration(new Date(System.currentTimeMillis()+SecurityConstants.EXPIRATION_TIME))
 				.signWith(SignatureAlgorithm.HS512, SecurityConstants.SECRET)
-				.claim("roles", springUser.getRoles())
+				.claim("roles", authResult.getAuthorities())
 				.compact();
+		
+		System.out.println("***********ajout header token ******* ");
+		System.out.println(jwtToken);
 		reponse.addHeader(SecurityConstants.HEADER_STRING, SecurityConstants.TOKEN_PREFIX+jwtToken);
 		
+		
+		System.out.println("************ ici fin seccessf**********");
 	}
 	
 	

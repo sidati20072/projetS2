@@ -1,56 +1,61 @@
 package tn.isetso.entities;
 
 import java.util.Collection;
+import java.util.Set;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 public class MyUserPrincipal implements UserDetails {
-    private Users user;
+    private static final long serialVersionUID = 1L;
+	private Users user;
  
     public MyUserPrincipal(Users user) {
         this.user = user;
     }
 
-	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    public MyUserPrincipal() {
+    }
+    Collection<GrantedAuthority> authorities=null;
 
-	@Override
-	public String getPassword() {
-		// TODO Auto-generated method stub
-		return this.user.getPassword();
-	}
+    public Users getUser() {
+        return user;
+    }
 
-	@Override
-	public String getUsername() {
-		// TODO Auto-generated method stub
-		return this.user.getUsername();
-	}
+    public void setUser(Users user) {
+        this.user = user;
+    }
 
-	@Override
-	public boolean isAccountNonExpired() {
-		// TODO Auto-generated method stub
-		return false;
-	}
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return authorities;
+    }
 
-	@Override
-	public boolean isAccountNonLocked() {
-		// TODO Auto-generated method stub
-		return false;
-	}
+    public void setAuthorities(Collection<GrantedAuthority> authorities)
+    {
+        this.authorities=authorities;
+    }
 
-	@Override
-	public boolean isCredentialsNonExpired() {
-		// TODO Auto-generated method stub
-		return false;
-	}
+    public String getPassword() {
+        return user.getPassword();
+    }
 
-	@Override
-	public boolean isEnabled() {
-		// TODO Auto-generated method stub
-		return false;
-	}
+    public String getUsername() {
+        return user.getUsername();
+    }
+
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    public boolean isEnabled() {
+        return true;
+    }
 }

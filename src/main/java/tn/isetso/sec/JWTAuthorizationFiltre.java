@@ -27,17 +27,24 @@ public class JWTAuthorizationFiltre extends OncePerRequestFilter{
 
 
 		response.addHeader("Access-Control-Allow-Origin", "*");
-		response.addHeader("Access-Control-Allow-headers", "Origin, Accept, X-Requested-With, Headers,authorization");
-		response.addHeader("Access-Control-Expose-Headers", "Access-Control-Allow-Origin,Access-Control-Allow-Credentials,authorization");
+		response.addHeader("Access-Control-Allow-headers", "Origin, Accept, X-Requested-With, Headers,Authorization");
+		response.addHeader("Access-Control-Expose-Headers", "Access-Control-Allow-Origin,Access-Control-Allow-Credentials,Authorization");
 		if (request.getMethod().equals("OPTIONS")){
 			
 			response.setStatus(HttpServletResponse.SC_OK);
 		}
 		else {
 			String jwtToken=request.getHeader(SecurityConstants.HEADER_STRING);
+			
+			System.out.println("******** secret tokeeen ********* ");
+			System.out.println(jwtToken);
+			
 			if (jwtToken==null || !jwtToken.startsWith(SecurityConstants.TOKEN_PREFIX)) {
 				
-				filterChain.doFilter(request, response); return ;
+				filterChain.doFilter(request, response); 
+				
+			
+				return ;
 			}
 			
 			Claims claims=(Claims) Jwts.parser()

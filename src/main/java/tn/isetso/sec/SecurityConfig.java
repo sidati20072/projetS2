@@ -34,16 +34,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		
 		http.csrf().disable()
 			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+
 			.and()
 				.authorizeRequests()
 				.antMatchers("/users/**","/login/**")
 				.permitAll()
 				.antMatchers(HttpMethod.POST,"/tasks/**").hasAuthority("ADMIN")
 				.anyRequest().authenticated()
+
 			.and()
 				.addFilter(new JWTAuthentificationFiltre(authenticationManager()))
 				.addFilterBefore(new JWTAuthorizationFiltre(), UsernamePasswordAuthenticationFilter.class);
-		
+				//.formLogin().loginProcessingUrl("/login");
+				
 		
 	}
 	

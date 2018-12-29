@@ -28,15 +28,23 @@ public class UserDetailsServiceImpl implements UserDetailsService  {
 			
 		if (u==null) throw new UsernameNotFoundException("user not found ici user details service " + username);
 		
-		Collection<Role> authorities = new ArrayList<>();
+		Collection<GrantedAuthority> authorities = new ArrayList<>();
+		
 		u.getRoles().forEach(r->{
-			authorities.add(r);
+			System.out.println(r.getRole());
+			authorities.add(new SimpleGrantedAuthority(r.getRole()));
 			
 		});
 		
 		
-		return  new MyUserPrincipal(u) ;
-		//(u.getUsername(),u.getPassword(),authorities); 
+		
+		MyUserPrincipal muser = new MyUserPrincipal();
+		muser.setUser(u);
+		muser.setAuthorities(authorities);
+		
+		System.out.println(muser.getAuthorities().toString());
+		return muser;
+		//return  (UserDetails) new Users(u.getUsername(),u.getPassword(),authorities); 
 	}
 
 	
