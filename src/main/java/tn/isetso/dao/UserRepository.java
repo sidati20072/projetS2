@@ -3,11 +3,11 @@ package tn.isetso.dao;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
-import tn.isetso.entities.User;
+import tn.isetso.entities.Users;
 
 @RepositoryRestResource
 
-public interface UserRepository  extends JpaRepository<User, Long>{
+public interface UserRepository  extends JpaRepository<Users, Long>{
 
-	public User findByUsername(String username);
+	public Users findByUsername(String username);
 }

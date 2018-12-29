@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import tn.isetso.dao.RoleRepository;
 import tn.isetso.dao.UserRepository;
 import tn.isetso.entities.Role;
-import tn.isetso.entities.User;
+import tn.isetso.entities.Users;
 
 @Service
 @Transactional
@@ -26,7 +26,7 @@ public class AccountServiceImpl implements AccountService{
 	
 	
 	@Override
-	public User saveUser(User u) {
+	public Users saveUser(Users u) {
 		u.setPassword(bcryptPasswordEncoder.encode(u.getPassword()));
 		
 
@@ -40,7 +40,7 @@ public class AccountServiceImpl implements AccountService{
 	}
 
 	@Override
-	public User findUserByUsername(String username) {
+	public Users findUserByUsername(String username) {
 
 		return userRepository.findByUsername(username);
 	}
@@ -48,7 +48,7 @@ public class AccountServiceImpl implements AccountService{
 	@Override
 	public void addRoleToUser(String username, String roleName) {
 		
-		User user=userRepository.findByUsername(username);
+		Users user=userRepository.findByUsername(username);
 		Role role=roleRepository.findByRole(roleName);
 		user.getRoles().add(role);
 	}

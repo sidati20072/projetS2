@@ -11,8 +11,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import tn.isetso.entities.MyUserPrincipal;
 import tn.isetso.entities.Role;
-import tn.isetso.entities.User;
+import tn.isetso.entities.Users;
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService  {
 
@@ -23,7 +24,7 @@ public class UserDetailsServiceImpl implements UserDetailsService  {
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-		User u = accountService.findUserByUsername(username) ;
+		Users u = accountService.findUserByUsername(username) ;
 			
 		if (u==null) throw new UsernameNotFoundException("user not found ici user details service " + username);
 		
@@ -34,7 +35,8 @@ public class UserDetailsServiceImpl implements UserDetailsService  {
 		});
 		
 		
-		return (UserDetails) new User(u.getUsername(),u.getPassword(),authorities); 
+		return  new MyUserPrincipal(u) ;
+		//(u.getUsername(),u.getPassword(),authorities); 
 	}
 
 	

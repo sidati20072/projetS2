@@ -20,7 +20,7 @@ import lombok.ToString;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-public class User {
+public class Users {
 
 	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id ;
@@ -31,7 +31,7 @@ public class User {
 	@ManyToMany(fetch=FetchType.EAGER)
 	private Collection<Role> roles = new ArrayList<>();
 
-	public User(String username, String password,  Collection<Role> roles) {
+	public Users(String username, String password,  Collection<Role> roles) {
 		super();
 		this.username = username;
 		this.password = password;
